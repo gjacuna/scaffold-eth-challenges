@@ -7,18 +7,28 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chianId = await getChainId();
 
-  await deploy("ExampleExternalContract", {
+  const koywePledgeContract = await deployments.get(
+    "KoywePledge"
+  );
+
+  await deploy("CO2TokenContract", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    // args: [ "Hello", ethers.utils.parseEther("1.5") ],
+    args: [koywePledgeContract.address, 0, "CO2e Tons", "TCO2e"],
     log: true,
   });
 
-  const exampleExternalContract = await ethers.getContract("ExampleExternalContract");
+  const cO2TokenContract = await ethers.getContract("CO2TokenContract");
+
+  // ToDo: change address to your frontend address vvvv
+  // console.log("\n 🤹  Sending ownership to frontend address...\n")
+  // const ownershipTransaction = await cO2TokenContract.transferOwnership("0x40f9bf922c23c43acdad71Ab4425280C0ffBD697" );
+  // console.log("\n    ✅ confirming...\n");
+  // const ownershipResult = await ownershipTransaction.wait();
 
   // Getting a previously deployed contract
-  // const ExampleExternalContract = await ethers.getContract(
-  //   "ExampleExternalContract",
+  // const CO2TokenContract = await ethers.getContract(
+  //   "CO2TokenContract",
   //   deployer
   // );
 
@@ -52,9 +62,9 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //     console.log(" 🎫 Verifing Contract on Etherscan... ");
   //     await sleep(5000); // wait 5 seconds for deployment to propagate
   //     await run("verify:verify", {
-  //       address: ExampleExternalContract.address,
+  //       address: CO2TokenContract.address,
   //       contract:
-  //         "contracts/ExampleExternalContract.sol:ExampleExternalContract",
+  //         "contracts/CO2TokenContract.sol:CO2TokenContract",
   //       contractArguments: [],
   //     });
   //   } catch (error) {
@@ -67,4 +77,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
 //   return new Promise((resolve) => setTimeout(resolve, ms));
 // }
 
-module.exports.tags = ["ExampleExternalContract"];
+module.exports.tags = ["CO2TokenContract"];

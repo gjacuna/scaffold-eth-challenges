@@ -59,7 +59,7 @@ const tokenListToObject = array =>
     return obj;
   }, {});
 
-function Swap({ selectedProvider, tokenListURI }) {
+function Swap({ selectedProvider, tokenListURI, address }) {
   const [tokenIn, setTokenIn] = useState(defaultToken);
   const [tokenOut, setTokenOut] = useState(defaultTokenOut);
   const [exact, setExact] = useState();
@@ -206,11 +206,11 @@ function Swap({ selectedProvider, tokenListURI }) {
 
   const getAccountInfo = async () => {
     if (tokens) {
-      const accountList = await selectedProvider.listAccounts();
+      const accountList = [address];
 
       if (tokenIn) {
         const tempContractIn = new ethers.Contract(tokens[tokenIn].address, erc20Abi, selectedProvider);
-        const newBalanceIn = await getBalance(tokenIn, accountList[0], tempContractIn);
+        const newBalanceIn = await getBalance(tokenIn, address, tempContractIn);
         setBalanceIn(newBalanceIn);
 
         let allowance;
@@ -225,7 +225,7 @@ function Swap({ selectedProvider, tokenListURI }) {
 
       if (tokenOut) {
         const tempContractOut = new ethers.Contract(tokens[tokenOut].address, erc20Abi, selectedProvider);
-        const newBalanceOut = await getBalance(tokenOut, accountList[0], tempContractOut);
+        const newBalanceOut = await getBalance(tokenOut, address, tempContractOut);
         setBalanceOut(newBalanceOut);
       }
     }
@@ -296,7 +296,7 @@ function Swap({ selectedProvider, tokenListURI }) {
         return item.address;
       });
       console.log(path);
-      const accountList = await selectedProvider.listAccounts();
+      const accountList = [address];
       const address = accountList[0];
 
       if (exact === "in") {

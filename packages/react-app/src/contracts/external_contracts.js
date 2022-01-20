@@ -798,4 +798,20 @@ module.exports = {
       },
     },
   },
+  137: {
+    contracts: {
+      DAI: {
+        address: "0x8f3cf7ad23cd3cadbd9735aff958023239c6a063",
+        abi: DAIABI,
+      },
+      PMCO2: {
+        address: "0xAa7DbD1598251f856C12f63557A4C4397c253Cea",
+        abi: ERC20ABI,
+      },
+      PBCT: {
+        address: "0x2F800Db0fdb5223b3C3f354886d907A671414A7F",
+        abi: ERC20ABI,
+      },
+    },
+  },
 };

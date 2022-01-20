@@ -1,4 +1,4 @@
-// deploy/01_deploy_staker.js
+// deploy/01_deploy_koywepledge.js
 
 // const { ethers } = require("hardhat");
 
@@ -7,24 +7,20 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   const { deployer } = await getNamedAccounts();
   const chainId = await getChainId();
 
-  const exampleExternalContract = await deployments.get(
-    "ExampleExternalContract"
-  );
-
-  await deploy("Staker", {
+  await deploy("KoywePledge", {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
-    args: [exampleExternalContract.address],
+    //args: [CO2TokenContract.address],
     log: true,
   });
 
-  // Getting a previously deployed contract
-  // const Staker = await ethers.getContract(
-  //   "Staker",
-  //   deployer
-  // );
+  const koywePledge = await ethers.getContract("KoywePledge", deployer);
 
-  // await YourContract.setPurpose("Hello");
+  // ToDo: change address to your frontend address vvvv
+  // console.log("\n 🤹  Sending ownership to frontend address...\n")
+  // const ownershipTransaction = await koywePledge.transferOwnership("0x40f9bf922c23c43acdad71Ab4425280C0ffBD697" );
+  // console.log("\n    ✅ confirming...\n");
+  // const ownershipResult = await ownershipTransaction.wait();
 
   // const yourContract = await ethers.getContractAt('YourContract', "0xaAC799eC2d00C013f1F11c37E654e59B0429DF6A") //<-- if you want to instantiate a version of a contract at a specific address!
 
@@ -52,8 +48,8 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   //     console.log(" 🎫 Verifing Contract on Etherscan... ");
   //     await sleep(3000); // wait 3 seconds for deployment to propagate bytecode
   //      await run("verify:verify", {
-  //        address: Staker.address,
-  //        contract: "contracts/Staker.sol:Staker",
+  //        address: KoywePledge.address,
+  //        contract: "contracts/KoywePledge.sol:KoywePledge",
   //        contractArguments: [],
   //      });
   //   } catch (e) {
@@ -62,4 +58,4 @@ module.exports = async ({ getNamedAccounts, deployments, getChainId }) => {
   // }
 };
 
-module.exports.tags = ["Staker"];
+module.exports.tags = ["KoywePledge"];

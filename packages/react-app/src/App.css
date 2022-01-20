@@ -1,3 +1,12 @@
 .App {
   text-align: center;
 }
+.fullImage {
+  width: 100%;
+  object-fit: contain;
+}
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
